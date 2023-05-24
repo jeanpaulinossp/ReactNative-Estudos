@@ -1,4 +1,12 @@
 import React from "react";
-import { Text } from "react-native";
+import { Text, View } from "react-native";
+import Estilo from "./estilo";
 
-export default () => <Text>Primeiro Componente!!!</Text>;
+export default () => {
+  console.warn("opa");
+  return (
+    <View>
+      <Text style={Estilo.fontG}>Primeiro Componente!!!</Text>
+    </View>
+  );
+};
