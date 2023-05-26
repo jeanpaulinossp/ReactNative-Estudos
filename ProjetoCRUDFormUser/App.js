@@ -32,7 +32,7 @@ export default function App() {
         <Stack.Screen
           name="UserForm"
           component={UserForm}
-          options={{ title: "Formulário de Usuáruis" }}
+          options={{ title: "Formulário de Usuários" }}
         />
       </Stack.Navigator>
     </NavigationContainer>
@@ -41,7 +41,7 @@ export default function App() {
 
 const screenOptions = {
   headerStyle: {
-    backgroundColor: "#f4511e",
+    backgroundColor: "#0f172a",
   },
   headerTintColor: "#fff",
   headerTitleStyle: {
