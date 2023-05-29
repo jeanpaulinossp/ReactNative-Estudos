@@ -1,16 +1,23 @@
 import React from "react";
 import { Text, SafeAreaView, FlatList, Alert } from "react-native";
-import users from "./data/users";
 import { Avatar, Button, Icon, ListItem } from "@rneui/themed";
 import { LinearGradient } from "expo-linear-gradient";
+import { useContext } from "react";
+import UsersContext from "../context/UsersContext";
+import { StatusBar } from "expo-status-bar";
 
 const UserList = (props) => {
+  const { state, dispatch } = useContext(UsersContext);
+
   function confirmUserDeletion(user) {
     Alert.alert("Excluir Usuário", "Deseja excluir o usuário?", [
       {
         text: "Sim",
         onPress() {
-          console.warn("deletei mesmo" + user.id);
+          dispatch({
+            type: "deleteUser",
+            payload: user,
+          });
         },
       },
       {
@@ -22,28 +29,22 @@ const UserList = (props) => {
   function getUserItem({ item: user }) {
     return (
       <ListItem
-        ViewComponent={LinearGradient}
-        linearGradientProps={{
-          colors: ["#020617", "#0f172a"],
-          start: { x: 1, y: 0 },
-          end: { x: 0.2, y: 0 },
-        }}
         bottomDivider
         onPress={() => props.navigation.navigate("UserForm")}
       >
         <Avatar rounded source={{ uri: user.avatarUrl }} />
         <ListItem.Content>
-          <ListItem.Title style={{ color: "white" }}>
+          <ListItem.Title style={{ color: "black" }}>
             {user.name}
           </ListItem.Title>
-          <ListItem.Subtitle style={{ color: "white" }}>
+          <ListItem.Subtitle style={{ color: "black" }}>
             {user.email}
           </ListItem.Subtitle>
         </ListItem.Content>
         <Button
           onPress={() => props.navigation.navigate("UserForm", user)}
           type="clear"
-          icon={<Icon name="edit" size={20} color="white" />}
+          icon={<Icon name="edit" size={20} color="black" />}
         />
         <Button
           onPress={() => confirmUserDeletion(user)}
@@ -58,9 +59,10 @@ const UserList = (props) => {
     <SafeAreaView>
       <FlatList
         key={(user) => user.id.toString()}
-        data={users}
+        data={state.users}
         renderItem={getUserItem}
       />
+      <StatusBar style="light" />
     </SafeAreaView>
   );
 };
